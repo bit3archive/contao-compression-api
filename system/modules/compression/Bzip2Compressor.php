@@ -29,14 +29,14 @@
  */
 
 /**
- * Class Bzip2Compression
+ * Class Bzip2Compressor
  *
  * 
  * @copyright  InfinitySoft 2011
  * @author     Tristan Lins <tristan.lins@infinitysoft.de>
  * @package    Compression API
  */
-class Bzip2Compression extends AbstractCompressor
+class Bzip2Compressor extends AbstractCompressor
 {
 	public function __construct()
 	{
@@ -50,14 +50,22 @@ class Bzip2Compression extends AbstractCompressor
 	 */
 	public function compress($strSource, $strTarget)
 	{
-		$src = fopen(TL_ROOT . '/' . $strSource, 'rb');
-		$target = bzopen(TL_ROOT . '/' . $strTarget, 'w');
+		if (($src = fopen(TL_ROOT . '/' . $strSource, 'rb')) === false)
+		{
+			return false;
+		}
+		if (($target = bzopen(TL_ROOT . '/' . $strTarget, 'w')) === false)
+		{
+			fclose($src);
+			return false;
+		}
 		while (!feof($src))
 		{
 			bzwrite($target, fread($src, 1024));
 		}
 		bzclose($target);
 		fclose($src);
+		return true;
 	}
 	
 	

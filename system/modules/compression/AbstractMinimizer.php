@@ -36,7 +36,7 @@
  * @author     Tristan Lins <tristan.lins@infinitysoft.de>
  * @package    Compression API
  */
-abstract class AbstractCssMinimizer extends System implements Minimizer
+abstract class AbstractMinimizer extends System implements Minimizer
 {
 	/**
 	 * The current minimizer configuration.
@@ -105,7 +105,7 @@ abstract class AbstractCssMinimizer extends System implements Minimizer
 	 * (non-PHPdoc)
 	 * @see Minimizer::minimizeToFile($strFile, $strCode)
 	 */
-	public function minimizeFromFile($strFile, $strCode)
+	public function minimizeToFile($strFile, $strCode)
 	{
 		$objFile = new File($strFile);
 		if ($objFile->write($this->minimizeCode($strCode)))

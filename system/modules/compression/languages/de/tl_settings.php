@@ -23,48 +23,22 @@
  * PHP version 5
  * @copyright  InfinitySoft 2010
  * @author     Tristan Lins <tristan.lins@infinitysoft.de>
- * @package    Compression API
+ * @package    Layout Additional Sources
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
 
 /**
- * Compressor settings
+ * Fields
  */
-$GLOBALS['TL_COMPRESSOR']    = array_merge
-(
-	array
-	(
-		'none'  => 'NoneCompressor',
-		'gzip'  => 'GzipCompressor',
-		'bzip2' => 'Bzip2Compressor'
-	),
-	isset($GLOBALS['TL_COMPRESSOR']) && is_array($GLOBALS['TL_COMPRESSOR']) ? $GLOBALS['TL_COMPRESSOR'] : array()
-);
-$GLOBALS['TL_JS_MINIMIZER']  = array_merge
-(
-	array
-	(
-		'none' => 'NoneMinimizer'
-	),
-	isset($GLOBALS['TL_JS_MINIMIZER']) && is_array($GLOBALS['TL_JS_MINIMIZER']) ? $GLOBALS['TL_JS_MINIMIZER'] : array()
-);
-$GLOBALS['TL_CSS_MINIMIZER'] = array_merge
-(
-	array
-	(
-		'none' => 'NoneMinimizer'
-	),
-	isset($GLOBALS['TL_CSS_MINIMIZER']) && is_array($GLOBALS['TL_CSS_MINIMIZER']) ? $GLOBALS['TL_CSS_MINIMIZER'] : array()
-);
+$GLOBALS['TL_LANG']['tl_settings']['default_compression']   = array('Standard Komprimierung', 'Wählen Sie hier die voreingestellte Komprimierung aus.');
+$GLOBALS['TL_LANG']['tl_settings']['default_css_minimizer'] = array('Standard CSS Minimizer', 'Wählen Sie hier die voreingestellten Minimizer für CSS aus.');
+$GLOBALS['TL_LANG']['tl_settings']['default_js_minimizer']  = array('Standard JavaScript Minimizer', 'Wählen Sie hier die voreingestellten Minimizer für JavaScripts aus.');
 
 
 /**
- * HOOKs
+ * Legend
  */
-$GLOBALS['TL_HOOKS']['compressFile'] = array();
-$GLOBALS['TL_HOOKS']['compressData'] = array();
-$GLOBALS['TL_HOOKS']['minimizeCss']  = array();
-$GLOBALS['TL_HOOKS']['minimizeJs']   = array();
+$GLOBALS['TL_LANG']['tl_settings']['compression_api'] = 'Compression API';
 
 ?>

@@ -29,58 +29,20 @@
  */
 
 /**
- * Class GzipCompressor
+ * Class NoneCompressor
  *
  * 
  * @copyright  InfinitySoft 2011
  * @author     Tristan Lins <tristan.lins@infinitysoft.de>
  * @package    Compression API
  */
-class GzipCompressor extends AbstractCompressor
+class NoneCompressor extends AbstractCompressor
 {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->configure(array
-		(
-			'level' => -1,
-			'mode' => ''
-		));
 	}
 
-	
-	/**
-	 * Get the gzopen mode.
-	 * 
-	 * @return string
-	 */
-	private function getMode()
-	{
-		$strMode = 'wb';
-		if (isset($this->arrConfig['level']) && is_numeric($this->arrConfig['level']))
-		{
-			$intLevel = intval($this->arrConfig['level']);
-			if ($intLevel >= 0 && $intLevel <= 9)
-			{
-				$strMode .= $intLevel;
-			}
-		}
-		if (isset($this->arrConfig['mode']))
-		{
-			switch ($this->arrConfig['mode'])
-			{
-			case 'filtered':
-				$strMode .= 'f';
-				break;
-				
-			case 'huffman':
-				$strMode .= 'h';
-				break;
-			}
-		}
-		return $strMode;
-	}
-	
 	
 	/**
 	 * (non-PHPdoc)
@@ -88,22 +50,8 @@ class GzipCompressor extends AbstractCompressor
 	 */
 	public function compress($strSource, $strTarget)
 	{
-		if (($src = fopen(TL_ROOT . '/' . $strSource, 'rb')) === false)
-		{
-			return false;
-		}
-		if (($target = gzopen(TL_ROOT . '/' . $strTarget, $this->getMode())) === false)
-		{
-			fclose ($src);
-			return false;
-		}
-		while (!feof($src))
-		{
-			gzwrite($target, fread($src, 1024));
-		}
-		gzclose($target);
-		fclose($src);
-		return true;
+		$this->import('Files');
+		return $this->Files->copy($strSource, $strTarget);
 	}
 	
 	
@@ -117,7 +65,7 @@ class GzipCompressor extends AbstractCompressor
 		$varData = $objFile->getContent();
 		$objFile->close();
 		
-		return $this->compressData($varData);
+		return $varData;
 	}
 	
 	
@@ -127,15 +75,13 @@ class GzipCompressor extends AbstractCompressor
 	 */
 	public function compressToFile($strFile, $varData)
 	{
-		if (($f = gzopen(TL_ROOT . '/' . $strFile, $this->getMode())) !== false)
+		$objFile = new File($strFile);
+		if ($objFile->write($varData))
 		{
-			if (gzwrite($f, $varData) !== false)
-			{
-				gzclose($f);
-				return true;
-			}
-			gzclose($f);
+			$objFile->close();
+			return true;
 		}
+		$objFile->close();
 		return false;
 	}
 	
@@ -146,16 +92,7 @@ class GzipCompressor extends AbstractCompressor
 	 */
 	public function compressData($varData)
 	{
-		$intLevel = -1;
-		if (isset($this->arrConfig['level']) && is_numeric($this->arrConfig['level']))
-		{
-			$_intLevel = intval($this->arrConfig['level']);
-			if ($_intLevel >= 0 && $_intLevel <= 9)
-			{
-				$intLevel = $_intLevel;
-			}
-		}
-		return gzencode($varData, $intLevel);
+		return $varData;
 	}
 }
 ?>

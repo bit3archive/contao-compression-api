@@ -21,23 +21,24 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  InfinitySoft 2011
+ * @copyright  InfinitySoft 2010
  * @author     Tristan Lins <tristan.lins@infinitysoft.de>
- * @package    Compression API
- * @license    LGPL
- * @filesource
+ * @package    Layout Additional Sources
+ * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
+
 
 /**
- * Interface CssMinimizer
- *
- * 
- * @copyright  InfinitySoft 2011
- * @author     Tristan Lins <tristan.lins@infinitysoft.de>
- * @package    Compression API
+ * Fields
  */
-interface CssMinimizer extends Minimizer
-{
+$GLOBALS['TL_LANG']['tl_settings']['default_compression']   = array('Default compression', 'Please choose default compressor.');
+$GLOBALS['TL_LANG']['tl_settings']['default_css_minimizer'] = array('Default CSS minimizer', 'Please choose default CSS minimizer.');
+$GLOBALS['TL_LANG']['tl_settings']['default_js_minimizer']  = array('Default JavaScript minimizer', 'Please choose default JavaScripts minimizer.');
 
-}
+
+/**
+ * Legend
+ */
+$GLOBALS['TL_LANG']['tl_settings']['compression_api'] = 'Compression API';
+
 ?>

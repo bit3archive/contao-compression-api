@@ -46,6 +46,7 @@ class Compression extends Controller
 		{
 			$arrComponents[$strKey] = $GLOBALS['TL_LANG']['COMPRESSION'][$strKey];
 		}
+		uksort($arrComponents, array(&$this, 'sortComponents'));
 		return $arrComponents;
 	}
 	
@@ -66,6 +67,18 @@ class Compression extends Controller
 	}
 	
 	
+	public function getDefaultCompressor()
+	{
+		return $GLOBALS['TL_CONFIG']['default_compression'];
+	}
+	
+	
+	public function getDefaultCompressorClass()
+	{
+		return $this->getCompressorClass($GLOBALS['TL_CONFIG']['default_compression']);
+	}
+	
+	
 	public function getJsMinimizers()
 	{
 		return $this->getComponents('TL_JS_MINIMIZER');
@@ -82,6 +95,18 @@ class Compression extends Controller
 	}
 	
 	
+	public function getDefaultJsMinimizer()
+	{
+		return $GLOBALS['TL_CONFIG']['default_js_minimizer'];
+	}
+	
+	
+	public function getDefaultJsMinimizerClass()
+	{
+		return $this->getJsMinimizerClass($GLOBALS['TL_CONFIG']['default_js_minimizer']);
+	}
+	
+	
 	public function getCssMinimizers()
 	{
 		return $this->getComponents('TL_CSS_MINIMIZER');
@@ -95,6 +120,28 @@ class Compression extends Controller
 			return $GLOBALS['TL_CSS_MINIMIZER'][$strKey];
 		}
 		return false;
+	}
+	
+	
+	public function getDefaultCssMinimizer()
+	{
+		return $GLOBALS['TL_CONFIG']['default_css_minimizer'];
+	}
+	
+	
+	public function getDefaultCssMinimizerClass()
+	{
+		return $this->getCssMinimizerClass($GLOBALS['TL_CONFIG']['default_css_minimizer']);
+	}
+	
+	
+	public function sortComponents($a, $b)
+	{
+		if ($a == 'none')
+			return -1;
+		if ($b == 'none')
+			return 1;
+		return strcasecmp($GLOBALS['TL_LANG']['COMPRESSION'][$a], $GLOBALS['TL_LANG']['COMPRESSION'][$b]);
 	}
 	
 }

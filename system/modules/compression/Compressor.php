@@ -36,7 +36,7 @@
  * @author     Tristan Lins <tristan.lins@infinitysoft.de>
  * @package    Compression API
  */
-interface Compressor extends Controller
+interface Compressor
 {
 	/**
 	 * Configure the compressor.

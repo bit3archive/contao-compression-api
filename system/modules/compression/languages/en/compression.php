@@ -21,50 +21,19 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  InfinitySoft 2010
+ * @copyright  InfinitySoft 2011
  * @author     Tristan Lins <tristan.lins@infinitysoft.de>
- * @package    Compression API
+ * @package    Layout Additional Sources
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
 
 /**
- * Compressor settings
+ * Compression components
  */
-$GLOBALS['TL_COMPRESSOR']    = array_merge
-(
-	array
-	(
-		'none'  => 'NoneCompressor',
-		'gzip'  => 'GzipCompressor',
-		'bzip2' => 'Bzip2Compressor'
-	),
-	isset($GLOBALS['TL_COMPRESSOR']) && is_array($GLOBALS['TL_COMPRESSOR']) ? $GLOBALS['TL_COMPRESSOR'] : array()
-);
-$GLOBALS['TL_JS_MINIMIZER']  = array_merge
-(
-	array
-	(
-		'none' => 'NoneMinimizer'
-	),
-	isset($GLOBALS['TL_JS_MINIMIZER']) && is_array($GLOBALS['TL_JS_MINIMIZER']) ? $GLOBALS['TL_JS_MINIMIZER'] : array()
-);
-$GLOBALS['TL_CSS_MINIMIZER'] = array_merge
-(
-	array
-	(
-		'none' => 'NoneMinimizer'
-	),
-	isset($GLOBALS['TL_CSS_MINIMIZER']) && is_array($GLOBALS['TL_CSS_MINIMIZER']) ? $GLOBALS['TL_CSS_MINIMIZER'] : array()
-);
+$GLOBALS['TL_LANG']['COMPRESSION']['none']  = '-';
+$GLOBALS['TL_LANG']['COMPRESSION']['gzip']  = 'GZip';
+$GLOBALS['TL_LANG']['COMPRESSION']['bzip2'] = 'BZip2';
 
-
-/**
- * HOOKs
- */
-$GLOBALS['TL_HOOKS']['compressFile'] = array();
-$GLOBALS['TL_HOOKS']['compressData'] = array();
-$GLOBALS['TL_HOOKS']['minimizeCss']  = array();
-$GLOBALS['TL_HOOKS']['minimizeJs']   = array();
 
 ?>
