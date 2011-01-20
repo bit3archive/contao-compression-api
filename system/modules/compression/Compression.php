@@ -59,6 +59,10 @@ class Compression extends Controller
 	
 	public function getCompressorClass($strKey)
 	{
+		if (empty($strKey))
+		{
+			$strKey = $this->getDefaultCompressor();
+		}
 		if (isset($GLOBALS['TL_COMPRESSOR'][$strKey]))
 		{
 			return $GLOBALS['TL_COMPRESSOR'][$strKey];
@@ -87,6 +91,10 @@ class Compression extends Controller
 	
 	public function getJsMinimizerClass($strKey)
 	{
+		if (empty($strKey))
+		{
+			$strKey = $this->getDefaultJsMinimizer();
+		}
 		if (isset($GLOBALS['TL_JS_MINIMIZER'][$strKey]))
 		{
 			return $GLOBALS['TL_JS_MINIMIZER'][$strKey];
@@ -115,6 +123,10 @@ class Compression extends Controller
 	
 	public function getCssMinimizerClass($strKey)
 	{
+		if (empty($strKey))
+		{
+			$strKey = $this->getDefaultCssMinimizer();
+		}
 		if (isset($GLOBALS['TL_CSS_MINIMIZER'][$strKey]))
 		{
 			return $GLOBALS['TL_CSS_MINIMIZER'][$strKey];
