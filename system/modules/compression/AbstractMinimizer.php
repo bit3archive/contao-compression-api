@@ -52,7 +52,7 @@ abstract class AbstractMinimizer extends System implements Minimizer
 	 */
 	public function configure($arrConfig)
 	{
-		$this->arrConfig = array_merge_recursive($this->arrConfig, $arrConfig);
+		$this->arrConfig = array_merge($this->arrConfig, $arrConfig);
 	}
 	
 	
