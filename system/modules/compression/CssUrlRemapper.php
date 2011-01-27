@@ -126,7 +126,7 @@ class CssUrlRemapper
 		}
 		// remap the url's
 		$objUrlRemapper = new CssUrlRemapperHelper($strRemappingPath, $blnAbsolutizeUrls, $objAbsolutizePage);
-		return preg_replace_callback('#url\((.*)\)#U', array(&$objUrlRemapper, 'replace'), $strCode);
+		return preg_replace_callback('#url\((.*)\)|@import (.*);#U', array(&$objUrlRemapper, 'replace'), $strCode);
 	}
 	
 	
@@ -177,16 +177,16 @@ class CssUrlRemapperHelper extends Controller {
 	
 	public function replace($arrMatch)
 	{
-		if (preg_match('#^["\']#', $arrMatch[1])) {
-			$arrMatch[1] = substr($arrMatch[1], 1);
+		$strUrl = isset($arrMatch[2]) ? trim($arrMatch[2]) : trim($arrMatch[1]);
+		if (preg_match('#^["\']#', $strUrl)) {
+			$strUrl = substr($strUrl, 1);
 		}
-		if (preg_match('#["\']$#', $arrMatch[1])) {
-			$arrMatch[1] = substr($arrMatch[1], 0, -1);
+		if (preg_match('#["\']$#', $strUrl)) {
+			$strUrl = substr($strUrl, 0, -1);
 		}
-		if (!preg_match('#^\w+://#', $arrMatch[1]) && $arrMatch[1][0] != '/')
+		if (!preg_match('#^\w+://#', $strUrl) && $strUrl[0] != '/')
 		{
 			$strPath = $this->strRelativePath;
-			$strUrl = $arrMatch[1];
 			while (preg_match('#^\.\./#', $strUrl))
 			{
 				$strPath = dirname($strPath);
@@ -197,7 +197,8 @@ class CssUrlRemapperHelper extends Controller {
 			{
 				$strUrl = $this->DomainLink->absolutizeUrl($strUrl, $this->objAbsolutizePage);
 			}
-			return 'url("' . $strUrl . '")';
+			
+			return str_replace(isset($arrMatch[2]) ? $arrMatch[2] : $arrMatch[1], '"'.$strUrl.'"', $arrMatch[0]);
 		}
 		return $arrMatch[0];
 	}
