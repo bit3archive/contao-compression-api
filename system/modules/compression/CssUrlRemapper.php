@@ -137,7 +137,7 @@ class CssUrlRemapper
 	 * @param string $strTargetFile
 	 * @return string
 	 */
-	protected function calculateRemappingPath($strSourceFile, $strTargetFile)
+	public function calculateRemappingPath($strSourceFile, $strTargetFile)
 	{
 		$strSourceDir = dirname($strSourceFile);
 		$strTargetDir = dirname($strTargetFile);
