@@ -147,7 +147,7 @@ class CssUrlRemapper
 			$strRelativePath .= '../';
 			$strTargetDir = dirname($strTargetDir);
 		}
-		return $strRelativePath . ($strTargetDir != '.' ? substr($strSourceDir, strlen($strTargetDir) + 1) : $strSourceDir);
+		return $strRelativePath . ($strTargetDir && $strTargetDir != '.' ? substr($strSourceDir, strlen($strTargetDir) + 1) : $strSourceDir);
 	}
 	
 }
