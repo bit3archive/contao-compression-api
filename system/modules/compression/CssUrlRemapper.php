@@ -187,12 +187,15 @@ class CssUrlRemapperHelper extends Controller {
 		if (!preg_match('#^\w+://#', $strUrl) && $strUrl[0] != '/')
 		{
 			$strPath = $this->strRelativePath;
-			while (preg_match('#^\.\./#', $strUrl))
+			while (preg_match('#^\.\./#', $strUrl) && $strPath && $strPath != '.')
 			{
 				$strPath = dirname($strPath);
 				$strUrl = substr($strUrl, 3);
 			}
-			$strUrl = $strPath . '/' . $strUrl;
+			if ($strPath && $strPath != '.')
+			{
+				$strUrl = $strPath . '/' . $strUrl;
+			}
 			if ($this->blnAbsolutizeUrls)
 			{
 				$strUrl = $this->DomainLink->absolutizeUrl($strUrl, $this->objAbsolutizePage);
