@@ -31,7 +31,7 @@
 /**
  * Class Compression
  *
- * 
+ *
  * @copyright  InfinitySoft 2011
  * @author     Tristan Lins <tristan.lins@infinitysoft.de>
  * @package    Compression API
@@ -49,104 +49,104 @@ class Compression extends Controller
 		uksort($arrComponents, array(&$this, 'sortComponents'));
 		return $arrComponents;
 	}
-	
-	
+
+
 	public function getCompressors()
 	{
 		return $this->getComponents('TL_COMPRESSOR');
 	}
-	
-	
-	public function getCompressorClass($strKey)
+
+
+	public function getCompressorClass()
 	{
-		if (empty($strKey))
+		$arrKeys = func_get_args();
+		foreach ($arrKeys as $strKey)
 		{
-			$strKey = $this->getDefaultCompressor();
+			if (isset($GLOBALS['TL_COMPRESSOR'][$strKey]))
+			{
+				return $GLOBALS['TL_COMPRESSOR'][$strKey];
+			}
 		}
-		if (isset($GLOBALS['TL_COMPRESSOR'][$strKey]))
-		{
-			return $GLOBALS['TL_COMPRESSOR'][$strKey];
-		}
-		return false;
+		return $this->getDefaultCompressorClass();
 	}
-	
-	
+
+
 	public function getDefaultCompressor()
 	{
 		return $GLOBALS['TL_CONFIG']['default_compression'];
 	}
-	
-	
+
+
 	public function getDefaultCompressorClass()
 	{
-		return $this->getCompressorClass($GLOBALS['TL_CONFIG']['default_compression']);
+		return $this->getCompressorClass($GLOBALS['TL_CONFIG']['default_compression'], 'none');
 	}
-	
-	
+
+
 	public function getJsMinimizers()
 	{
 		return $this->getComponents('TL_JS_MINIMIZER');
 	}
-	
-	
-	public function getJsMinimizerClass($strKey)
+
+
+	public function getJsMinimizerClass()
 	{
-		if (empty($strKey))
+		$arrKeys = func_get_args();
+		foreach ($arrKeys as $strKey)
 		{
-			$strKey = $this->getDefaultJsMinimizer();
+			if (isset($GLOBALS['TL_JS_MINIMIZER'][$strKey]))
+			{
+				return $GLOBALS['TL_JS_MINIMIZER'][$strKey];
+			}
 		}
-		if (isset($GLOBALS['TL_JS_MINIMIZER'][$strKey]))
-		{
-			return $GLOBALS['TL_JS_MINIMIZER'][$strKey];
-		}
-		return false;
+		return $this->getDefaultJsMinimizerClass();
 	}
-	
-	
+
+
 	public function getDefaultJsMinimizer()
 	{
 		return $GLOBALS['TL_CONFIG']['default_js_minimizer'];
 	}
-	
-	
+
+
 	public function getDefaultJsMinimizerClass()
 	{
-		return $this->getJsMinimizerClass($GLOBALS['TL_CONFIG']['default_js_minimizer']);
+		return $this->getJsMinimizerClass($GLOBALS['TL_CONFIG']['default_js_minimizer'], 'none');
 	}
-	
-	
+
+
 	public function getCssMinimizers()
 	{
 		return $this->getComponents('TL_CSS_MINIMIZER');
 	}
-	
-	
-	public function getCssMinimizerClass($strKey)
+
+
+	public function getCssMinimizerClass()
 	{
-		if (empty($strKey))
+		$arrKeys = func_get_args();
+		foreach ($arrKeys as $strKey)
 		{
-			$strKey = $this->getDefaultCssMinimizer();
+			if (isset($GLOBALS['TL_CSS_MINIMIZER'][$strKey]))
+			{
+				return $GLOBALS['TL_CSS_MINIMIZER'][$strKey];
+			}
 		}
-		if (isset($GLOBALS['TL_CSS_MINIMIZER'][$strKey]))
-		{
-			return $GLOBALS['TL_CSS_MINIMIZER'][$strKey];
-		}
-		return false;
+		return $this->getDefaultCssMinimizerClass();
 	}
-	
-	
+
+
 	public function getDefaultCssMinimizer()
 	{
 		return $GLOBALS['TL_CONFIG']['default_css_minimizer'];
 	}
-	
-	
+
+
 	public function getDefaultCssMinimizerClass()
 	{
 		return $this->getCssMinimizerClass($GLOBALS['TL_CONFIG']['default_css_minimizer']);
 	}
-	
-	
+
+
 	public function sortComponents($a, $b)
 	{
 		if ($a == 'none')
@@ -155,6 +155,6 @@ class Compression extends Controller
 			return 1;
 		return strcasecmp($GLOBALS['TL_LANG']['COMPRESSION'][$a], $GLOBALS['TL_LANG']['COMPRESSION'][$b]);
 	}
-	
+
 }
 ?>
