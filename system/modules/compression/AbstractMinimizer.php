@@ -31,7 +31,7 @@
 /**
  * Class AbstractMinimizer
  *
- * 
+ *
  * @copyright  InfinitySoft 2011
  * @author     Tristan Lins <tristan.lins@infinitysoft.de>
  * @package    Compression API
@@ -40,12 +40,12 @@ abstract class AbstractMinimizer extends System implements Minimizer
 {
 	/**
 	 * The current minimizer configuration.
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $arrConfig = array();
-	
-	
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Minimizer::configure()
@@ -54,8 +54,8 @@ abstract class AbstractMinimizer extends System implements Minimizer
 	{
 		$this->arrConfig = array_merge($this->arrConfig, $arrConfig);
 	}
-	
-	
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Minimizer::getConfig()
@@ -64,15 +64,15 @@ abstract class AbstractMinimizer extends System implements Minimizer
 	{
 		return $this->arrConfig;
 	}
-	
-	
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Minimizer::minimize($strSource, $strTarget)
 	 */
 	public function minimize($strSource, $strTarget)
 	{
-		$strCode = $this->minimizeFile($strSource);
+		$strCode = $this->minimizeFromFile($strSource);
 		if ($strCode !== false)
 		{
 			$objFile = new File($strTarget);
@@ -82,8 +82,8 @@ abstract class AbstractMinimizer extends System implements Minimizer
 		}
 		return false;
 	}
-	
-	
+
+
 	/**
 	 * (non-PHPdoc)
 	 * @see Minimizer::minimizeFromFile($strFile)
@@ -99,7 +99,7 @@ abstract class AbstractMinimizer extends System implements Minimizer
 		}
 		return false;
 	}
-	
+
 
 	/**
 	 * (non-PHPdoc)
