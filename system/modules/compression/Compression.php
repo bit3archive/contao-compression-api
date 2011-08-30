@@ -182,7 +182,7 @@ class Compression extends Controller
 
 	public function getDefaultCssMinimizerClass()
 	{
-		return $this->getCssMinimizerClass($GLOBALS['TL_CONFIG']['default_css_minimizer']);
+		return $this->getCssMinimizerClass($GLOBALS['TL_CONFIG']['default_css_minimizer'], 'none');
 	}
 
 
