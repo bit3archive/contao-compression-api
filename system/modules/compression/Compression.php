@@ -51,6 +51,19 @@ class Compression extends Controller
 	}
 
 
+	/**
+	 * Get a compressor instance.
+	 *
+	 * @param string... List of drivers to try out, or empty to use the default driver.
+	 * @return Compressor
+	 */
+	public function getCompressor()
+	{
+		$strClass = call_user_func_array(array(&$this, 'getCompressorClass'), func_get_args());
+		return (in_array('getInstance', get_class_methods($strClass))) ? call_user_func(array($strClass, 'getInstance')) : new $strClass();
+	}
+
+
 	public function getCompressors()
 	{
 		return $this->getComponents('TL_COMPRESSOR');
@@ -83,6 +96,19 @@ class Compression extends Controller
 	}
 
 
+	/**
+	 * Get a js minimizer instance.
+	 *
+	 * @param string... List of drivers to try out, or empty to use the default driver.
+	 * @return Compressor
+	 */
+	public function getJsMinimizer()
+	{
+		$strClass = call_user_func_array(array(&$this, 'getJsMinimizerClass'), func_get_args());
+		return (in_array('getInstance', get_class_methods($strClass))) ? call_user_func(array($strClass, 'getInstance')) : new $strClass();
+	}
+
+
 	public function getJsMinimizers()
 	{
 		return $this->getComponents('TL_JS_MINIMIZER');
@@ -112,6 +138,19 @@ class Compression extends Controller
 	public function getDefaultJsMinimizerClass()
 	{
 		return $this->getJsMinimizerClass($GLOBALS['TL_CONFIG']['default_js_minimizer'], 'none');
+	}
+
+
+	/**
+	 * Get a css minimizer instance.
+	 *
+	 * @param string... List of drivers to try out, or empty to use the default driver.
+	 * @return Compressor
+	 */
+	public function getCssMinimizer()
+	{
+		$strClass = call_user_func_array(array(&$this, 'getCssMinimizerClass'), func_get_args());
+		return (in_array('getInstance', get_class_methods($strClass))) ? call_user_func(array($strClass, 'getInstance')) : new $strClass();
 	}
 
 
