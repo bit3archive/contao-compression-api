@@ -59,7 +59,8 @@ class Compression extends Controller
 	 */
 	public function getCompressor()
 	{
-		$strClass = call_user_func_array(array(&$this, 'getCompressorClass'), func_get_args());
+		$args = func_get_args();
+		$strClass = call_user_func_array(array(&$this, 'getCompressorClass'), $args);
 		return (in_array('getInstance', get_class_methods($strClass))) ? call_user_func(array($strClass, 'getInstance')) : new $strClass();
 	}
 
@@ -104,7 +105,8 @@ class Compression extends Controller
 	 */
 	public function getJsMinimizer()
 	{
-		$strClass = call_user_func_array(array(&$this, 'getJsMinimizerClass'), func_get_args());
+		$args = func_get_args();
+		$strClass = call_user_func_array(array(&$this, 'getJsMinimizerClass'), $args);
 		return (in_array('getInstance', get_class_methods($strClass))) ? call_user_func(array($strClass, 'getInstance')) : new $strClass();
 	}
 
@@ -149,7 +151,8 @@ class Compression extends Controller
 	 */
 	public function getCssMinimizer()
 	{
-		$strClass = call_user_func_array(array(&$this, 'getCssMinimizerClass'), func_get_args());
+		$args = func_get_args();
+		$strClass = call_user_func_array(array(&$this, 'getCssMinimizerClass'), $args);
 		return (in_array('getInstance', get_class_methods($strClass))) ? call_user_func(array($strClass, 'getInstance')) : new $strClass();
 	}
 
