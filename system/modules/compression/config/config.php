@@ -57,7 +57,8 @@ $GLOBALS['TL_CSS_MINIMIZER'] = array_merge
 	),
 	isset($GLOBALS['TL_CSS_MINIMIZER']) && is_array($GLOBALS['TL_CSS_MINIMIZER']) ? $GLOBALS['TL_CSS_MINIMIZER'] : array()
 );
-
+// by default, embed images <= 16 KiB
+$GLOBALS['TL_CONFIG']['css_embed_images'] = 16384;
 
 /**
  * HOOKs

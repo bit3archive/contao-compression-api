@@ -34,6 +34,7 @@
 $GLOBALS['TL_LANG']['tl_settings']['default_compression']   = array('Standard Komprimierung', 'Wählen Sie hier die voreingestellte Komprimierung aus.');
 $GLOBALS['TL_LANG']['tl_settings']['default_css_minimizer'] = array('Standard CSS Minimizer', 'Wählen Sie hier die voreingestellten Minimizer für CSS aus.');
 $GLOBALS['TL_LANG']['tl_settings']['default_js_minimizer']  = array('Standard JavaScript Minimizer', 'Wählen Sie hier die voreingestellten Minimizer für JavaScripts aus.');
+$GLOBALS['TL_LANG']['tl_settings']['css_embed_images']      = array('Bilder in die CSS einbetten', 'Wählen Sie hier die Größe der Bilder, die in CSS eingebettet werden sollen.');
 
 
 /**
