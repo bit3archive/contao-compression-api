@@ -75,10 +75,10 @@ class CssInlineImages
 class CssInlineImagesHelper
 {
 	/**
-	 * The file object.
-	 * @var File
+	 * The file path.
+	 * @var string
 	 */
-	protected $objFile;
+	protected $strFile;
 
 
 	/**
@@ -94,7 +94,7 @@ class CssInlineImagesHelper
 	 */
 	public function __construct(File $varFile, $intSize)
 	{
-		$this->objFile = $varFile instanceof File ? $varFile : new File($varFile);
+		$this->strFile = $varFile instanceof File ? $varFile->value : $varFile;
 		$this->intSize = $intSize;
 	}
 
@@ -114,7 +114,7 @@ class CssInlineImagesHelper
 		if (!preg_match('#^\w+://#', $strUrl) && $strUrl[0] != '/')
 		{
 			// add the css file path to the url
-			$strUrl = dirname($this->objFile->value) . '/' . $strUrl;
+			$strUrl = dirname($this->strFile) . '/' . $strUrl;
 			// check if file exists
 			if (file_exists(TL_ROOT . '/' . $strUrl)) {
 				// create an image object
