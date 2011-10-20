@@ -31,7 +31,7 @@
 /**
  * System configuration
  */
-$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{compression_api:hide},default_compression,default_css_minimizer,default_js_minimizer,css_embed_images';
+$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{compression_api:hide},default_compression,default_css_minimizer,default_js_minimizer';
 $GLOBALS['TL_DCA']['tl_settings']['fields']['default_compression'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['default_compression'],
@@ -54,27 +54,6 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['default_js_minimizer'] = array
 	'default'                 => 'none',
 	'inputType'               => 'select',
 	'options_callback'        => array('tl_settings_compression_api', 'getJsMinimizers'),
-	'eval'                    => array('tl_class'=>'w50')
-);
-$GLOBALS['TL_DCA']['tl_settings']['fields']['css_embed_images'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['css_embed_images'],
-	'inputType'               => 'select',
-	'options'                 => array
-	(
-		0       => '-',
-		1024    => '1 KiB',
-		2048    => '2 KiB',
-		4069    => '4 KiB',
-		8192    => '8 KiB',
-		16384   => '16 KiB',
-		32768   => '32 KiB',
-		65536   => '64 KiB',
-		131072  => '128 KiB',
-		262144  => '256 KiB',
-		524288  => '512 KiB',
-		1048576 => '1 MiB'
-	),
 	'eval'                    => array('tl_class'=>'w50')
 );
 

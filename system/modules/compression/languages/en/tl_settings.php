@@ -34,7 +34,6 @@
 $GLOBALS['TL_LANG']['tl_settings']['default_compression']   = array('Default compression', 'Please choose default compressor.');
 $GLOBALS['TL_LANG']['tl_settings']['default_css_minimizer'] = array('Default CSS minimizer', 'Please choose default CSS minimizer.');
 $GLOBALS['TL_LANG']['tl_settings']['default_js_minimizer']  = array('Default JavaScript minimizer', 'Please choose default JavaScripts minimizer.');
-$GLOBALS['TL_LANG']['tl_settings']['css_embed_images']      = array('Embed images into css', 'Please choose the size of images that are embedded into the css.');
 
 
 /**
