@@ -28,6 +28,7 @@
  * @filesource
  */
 
+
 /**
  * Class CssUrlRemapper
  *
@@ -126,7 +127,7 @@ class CssUrlRemapper
 		}
 		// remap the url's
 		$objUrlRemapper = new CssUrlRemapperHelper($strRemappingPath, $blnAbsolutizeUrls, $objAbsolutizePage);
-		return preg_replace_callback('#url\((.*)\)|@import (.*);#U', array(&$objUrlRemapper, 'replace'), $strCode);
+		return preg_replace_callback('#(\w+):.*url\((.*)\)|@import (.*);#U', array(&$objUrlRemapper, 'replace'), $strCode);
 	}
 	
 	
@@ -177,31 +178,34 @@ class CssUrlRemapperHelper extends Controller {
 	
 	public function replace($arrMatch)
 	{
-		$strUrl = isset($arrMatch[2]) ? trim($arrMatch[2]) : trim($arrMatch[1]);
-		if (preg_match('#^["\']#', $strUrl)) {
-			$strUrl = substr($strUrl, 1);
-		}
-		if (preg_match('#["\']$#', $strUrl)) {
-			$strUrl = substr($strUrl, 0, -1);
-		}
-		if (!preg_match('#^\w+://#', $strUrl) && $strUrl[0] != '/')
+		if ($arrMatch[1] != 'behavior')
 		{
-			$strPath = $this->strRelativePath;
-			while (preg_match('#^\.\./#', $strUrl) && $strPath && $strPath != '.')
-			{
-				$strPath = dirname($strPath);
-				$strUrl = substr($strUrl, 3);
+			$strUrl = isset($arrMatch[3]) ? trim($arrMatch[3]) : trim($arrMatch[2]);
+			if (preg_match('#^["\']#', $strUrl)) {
+				$strUrl = substr($strUrl, 1);
 			}
-			if ($strPath && $strPath != '.')
-			{
-				$strUrl = $strPath . '/' . $strUrl;
+			if (preg_match('#["\']$#', $strUrl)) {
+				$strUrl = substr($strUrl, 0, -1);
 			}
-			if ($this->blnAbsolutizeUrls)
+			if (!preg_match('#^\w+://#', $strUrl) && $strUrl[0] != '/')
 			{
-				$strUrl = $this->DomainLink->absolutizeUrl($strUrl, $this->objAbsolutizePage);
+				$strPath = $this->strRelativePath;
+				while (preg_match('#^\.\./#', $strUrl) && $strPath && $strPath != '.')
+				{
+					$strPath = dirname($strPath);
+					$strUrl = substr($strUrl, 3);
+				}
+				if ($strPath && $strPath != '.')
+				{
+					$strUrl = $strPath . '/' . $strUrl;
+				}
+				if ($this->blnAbsolutizeUrls)
+				{
+					$strUrl = $this->DomainLink->absolutizeUrl($strUrl, $this->objAbsolutizePage);
+				}
+
+				return str_replace(isset($arrMatch[2]) ? $arrMatch[2] : $arrMatch[1], '"'.$strUrl.'"', $arrMatch[0]);
 			}
-			
-			return str_replace(isset($arrMatch[2]) ? $arrMatch[2] : $arrMatch[1], '"'.$strUrl.'"', $arrMatch[0]);
 		}
 		return $arrMatch[0];
 	}
