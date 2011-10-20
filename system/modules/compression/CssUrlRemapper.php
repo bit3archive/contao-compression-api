@@ -187,7 +187,7 @@ class CssUrlRemapperHelper extends Controller {
 			if (preg_match('#["\']$#', $strUrl)) {
 				$strUrl = substr($strUrl, 0, -1);
 			}
-			if (!preg_match('#^\w+://#', $strUrl) && $strUrl[0] != '/')
+			if (!preg_match('#^\w+:#', $strUrl) && $strUrl[0] != '/')
 			{
 				$strPath = $this->strRelativePath;
 				while (preg_match('#^\.\./#', $strUrl) && $strPath && $strPath != '.')

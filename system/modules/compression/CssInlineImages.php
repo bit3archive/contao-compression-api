@@ -111,7 +111,7 @@ class CssInlineImagesHelper
 		if (preg_match('#["\']$#', $strUrl)) {
 			$strUrl = substr($strUrl, 0, -1);
 		}
-		if (!preg_match('#^\w+://#', $strUrl) && $strUrl[0] != '/')
+		if (!preg_match('#^\w+:#', $strUrl) && $strUrl[0] != '/')
 		{
 			// add the css file path to the url
 			$strUrl = dirname($this->strFile) . '/' . $strUrl;
