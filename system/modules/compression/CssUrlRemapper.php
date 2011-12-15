@@ -127,7 +127,7 @@ class CssUrlRemapper
 		}
 		// remap the url's
 		$objUrlRemapper = new CssUrlRemapperHelper($strRemappingPath, $blnAbsolutizeUrls, $objAbsolutizePage);
-		return preg_replace_callback('#(\w+):.*url\((.*)\)|@import (.*);#U', array(&$objUrlRemapper, 'replace'), $strCode);
+		return preg_replace_callback('#(\w+):[^;]*url\((.*)\)|url\((.*)\)|@import (.*);#U', array(&$objUrlRemapper, 'replace'), $strCode);
 	}
 	
 	
@@ -180,7 +180,7 @@ class CssUrlRemapperHelper extends Controller {
 	{
 		if ($arrMatch[1] != 'behavior')
 		{
-			$strUrl = isset($arrMatch[3]) ? trim($arrMatch[3]) : trim($arrMatch[2]);
+			$strUrl = isset($arrMatch[4]) ? trim($arrMatch[4]) : (isset($arrMatch[3]) ? trim($arrMatch[3]) : trim($arrMatch[2]));
 			if (preg_match('#^["\']#', $strUrl)) {
 				$strUrl = substr($strUrl, 1);
 			}
@@ -204,7 +204,7 @@ class CssUrlRemapperHelper extends Controller {
 					$strUrl = $this->DomainLink->absolutizeUrl($strUrl, $this->objAbsolutizePage);
 				}
 
-				return str_replace(isset($arrMatch[2]) ? $arrMatch[2] : $arrMatch[1], '"'.$strUrl.'"', $arrMatch[0]);
+				return str_replace(isset($arrMatch[3]) ? $arrMatch[3] : (isset($arrMatch[2]) ? $arrMatch[2] : $arrMatch[1]), '"'.$strUrl.'"', $arrMatch[0]);
 			}
 		}
 		return $arrMatch[0];
