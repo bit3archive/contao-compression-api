@@ -204,7 +204,17 @@ class CssUrlRemapperHelper extends Controller {
 					$strUrl = $this->DomainLink->absolutizeUrl($strUrl, $this->objAbsolutizePage);
 				}
 
-				return str_replace(isset($arrMatch[3]) ? $arrMatch[3] : (isset($arrMatch[2]) ? $arrMatch[2] : $arrMatch[1]), '"'.$strUrl.'"', $arrMatch[0]);
+				if (isset($arrMatch[4])) {
+					$strSearch = $arrMatch[4];
+				} else if (isset($arrMatch[3])) {
+					$strSearch = $arrMatch[3];
+				} else if (isset($arrMatch[2])) {
+					$strSearch = $arrMatch[2];
+				} else {
+					$strSearch = $arrMatch[1];
+				}
+
+				return str_replace($strSearch, '"'.$strUrl.'"', $arrMatch[0]);
 			}
 		}
 		return $arrMatch[0];
